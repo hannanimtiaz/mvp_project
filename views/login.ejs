@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1><%= type %> Login</h1>
+
+    <input type="text" name="" id="email">
+    <input type="text" id="password">
+    <button class="login">Login</button>
+</body>
+
+<script>
+    $('.login').click(function () {
+        event.preventDefault();
+        var email = $('#email').val()
+        var password = $('#password').val()
+        console.log('email: ', email);
+        console.log('password: ', password);
+        let type = '<%= type %>';
+        let url
+        if(type == 'Admin'){
+            url = '/auth/admin/login'
+        }
+        else if(type == 'Retail'){
+            url = '/auth/retail/login'
+        }
+        else{
+            url = '/auth/trade/login'
+        }
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: 'json',
+            data: {
+                email: email,
+                password: password
+            },
+            success: function (data) {
+                console.log('data: ', data);
+
+            }
+
+        })
+
+    })
+</script>
+
+</html>
