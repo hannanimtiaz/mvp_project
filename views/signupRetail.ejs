@@ -1,1 +1,56 @@
-<h1>hello</h1>
+<%- include('./partials/html_start.ejs') %>
+
+<div class="container-fluid">
+    <h1>Create an Account</h1>
+
+    <form>
+
+        <div class="form-group">
+            <label for="firstName">First name</label>
+            <span>
+                <div class="dropdown">
+                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Miss
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Miss</a>
+                        <a class="dropdown-item" href="#">Mr</a>
+                    </div>
+                </div>
+            </span>
+            <span> <input type="text" class="form-control" id="firstName" placeholder="Enter your name"> </span>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            <span> <input type="text" class="form-control" id="lastName" placeholder="Enter your last name"> </span>
+        </div>
+
+        <div class="form-group">
+            <label for="userEmail">Email address*</label>
+            <span> <input type="text" class="form-control" id="userEmail" placeholder="Enter an email"> </span>
+        </div>
+
+        <span>
+            <div class="form-group">
+                <label for="phoneNumber">Phone number</label>
+                <input type="string" class="form-control" id="phoneNumber" placeholder="Enter a phone number"
+                    onkeypress="return isNumberKey(event)">
+            </div>
+
+            <div class="form-group">
+                <label for="DOB">Date of Birth</label>
+                <span> <input type="text" class="form-control" id="DOB" placeholder="DOB"> </span>
+            </div>
+        </span>
+
+        <span>
+            <a href="account-already">Already have an account?</a>
+            <button type="submit" class="submit-btn">Create account -></button>
+        </span>
+    </form>
+
+</div>
+
+<%- include('./partials/html_end.ejs') %>
