@@ -17,5 +17,6 @@ var retailSchema = new Schema({
     }
 });
 
+var Retail = mongoose.model('Retail', retailSchema);
 
-module.exports = Admin;
+module.exports = Retail;
