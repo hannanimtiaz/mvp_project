@@ -7,7 +7,6 @@ var authRouter = require('./auth');
 var adminRouter = require('./admin');
 
 
-
 router.use('/auth', auth.isNotLoggedIn, authRouter);
 
 router.use('/admin', auth.isAdmin, adminRouter);

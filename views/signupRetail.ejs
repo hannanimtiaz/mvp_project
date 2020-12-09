@@ -7,19 +7,14 @@
 
         <div class="form-group">
             <label for="firstName">First name</label>
-            <span>
-                <div class="dropdown">
-                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Miss
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Miss</a>
-                        <a class="dropdown-item" href="#">Mr</a>
-                    </div>
-                </div>
-            </span>
-            <span> <input type="text" class="form-control" id="firstName" placeholder="Enter your name"> </span>
+            <div class="d-flex">
+                <select id="gender">
+                    <option value="female">Miss</option>
+                    <option value="male">Mr</option>
+                </select>
+
+                <input type="text" class="form-control" id="firstName" placeholder="Enter your name">
+            </div>
         </div>
 
         <div class="form-group">
@@ -29,28 +24,82 @@
 
         <div class="form-group">
             <label for="userEmail">Email address*</label>
-            <span> <input type="text" class="form-control" id="userEmail" placeholder="Enter an email"> </span>
+            <span> <input type="email" class="form-control" id="userEmail" placeholder="Enter an email"> </span>
+        </div>
+
+        <div class="form-group">
+            <label for="passkey">Password*</label>
+            <span> <input type="password" class="form-control" id="passkey" placeholder="Enter a unique password">
+            </span>
+        </div>
+
+        <div class="d-flex">
+            <div class="form-group">
+                <label for="phoneNumber">Phone number</label>
+                <input type="string" class="form-control" id="phoneNumber" placeholder="Enter a phone number">
+            </div>
+
+            <div class="form-group">
+                <label for="DOB">Date of Birth</label> <br>
+                <input id="DOB" type="text" name="daterange" />
+            </div>
         </div>
 
         <span>
-            <div class="form-group">
-                <label for="phoneNumber">Phone number</label>
-                <input type="string" class="form-control" id="phoneNumber" placeholder="Enter a phone number"
-                    onkeypress="return isNumberKey(event)">
-            </div>
-
-            <div class="form-group">
-                <label for="DOB">Date of Birth</label>
-                <span> <input type="text" class="form-control" id="DOB" placeholder="DOB"> </span>
-            </div>
-        </span>
-
-        <span>
             <a href="account-already">Already have an account?</a>
-            <button type="submit" class="submit-btn">Create account -></button>
+            <button type="submit" class="submit_btn">Create account -></button>
         </span>
     </form>
 
 </div>
+
+<script>
+    $('#DOB').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+            format: 'DD/MM/YYYY'
+        }
+    });
+
+    $('.submit_btn').click(function (e) {
+        e.preventDefault();
+        var gender = $('#gender').val()
+        var firstName = $('#firstName').val()
+        var lastName = $('#lastName').val()
+        var userEmail = $('#userEmail').val()
+        var passkey = $('#passkey').val()
+        var phoneNumber = $('#phoneNumber').val()
+        var DOB = $('#DOB').val()
+        
+        console.log('gender: ', gender);
+        console.log('firstName: ' + firstName)
+        console.log('DOB: ', DOB);
+
+        if (($('#firstName').val() == '') || ($('#lastName').val() == '') || ($('#userEmail').val() == '') || ($('#passkey').val() == '') || ($('#phoneNumber').val() == '') || ($('#DOB').val() == '')) {
+            alert("ERROR: Empty field(s).");
+        }
+
+        else {
+            $.ajax(
+                {
+                    url: "/auth/retail/signup",
+                    type: "POST",
+                    data: {
+                        gender: gender,
+                        firstname: firstName,
+                        lastname: lastName,
+                        email: userEmail,
+                        password: passkey,
+                        phone_no: phoneNumber,
+                        DOB: DOB
+                    },
+                    success: function (obj) {
+                        console.log(obj.msg)
+                    }
+                })
+        }
+    })
+</script>
 
 <%- include('./partials/html_end.ejs') %>

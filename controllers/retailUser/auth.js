@@ -9,6 +9,27 @@ exports.getSignup = function (req, res, next) {
     res.render('signupRetail');
 }
 
+exports.postSignup = async function (req, res) {
+    const { gender, firstname, lastname, email, password, phone_no, DOB } = req.body;
+
+    let retail = await RetailModel.create({
+        gender, firstname, lastname, email, password, phone_no, DOB
+    });
+    console.log('retail: ', retail);
+
+    if (retail)
+    {
+        return res.json({
+            msg: 'User created'
+        });
+    }
+    else{
+        return res.json({
+            msg: 'User not created'
+        });
+    }
+}
+
 exports.postLogin = async function (req, res, next) {
     const { email, password } = req.body;
 

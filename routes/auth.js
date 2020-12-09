@@ -21,6 +21,9 @@ router.post('/retail/login', retailAuth.postLogin);
 /* Get retail user signup page. */
 router.get('/retail/signup', retailAuth.getSignup);
 
+/* Post retail user signup page. */
+router.post('/retail/signup', retailAuth.postSignup);
+
 /* GET trade user login page. */
 router.get('/trade/login', tradeAuth.getLogin);
 
