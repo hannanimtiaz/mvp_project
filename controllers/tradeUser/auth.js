@@ -5,6 +5,10 @@ exports.getLogin = function (req, res, next) {
     res.render('login', { type: 'Trade User' });
 }
 
+exports.getSignup = function (req, res, next) {
+    res.render('signupTrade');
+}
+
 exports.postLogin = async function (req, res, next) {
     const { email, password } = req.body;
 

@@ -1,5 +1,139 @@
 <%- include('./partials/html_start.ejs') %>
 
-  <h1><%= title %></h1>
+<div class="container-fluid signupTrade_page">
+  <h1>Create an Account</h1>
 
-  <%- include('./partials/html_end.ejs') %>
+  <form>
+
+    <div class="yourDetails_signupTrade">
+
+      <div class="form-group">
+        <label for="firstName">First name</label>
+        <div class="d-flex">
+          <select id="gender">
+            <option value="female">Miss</option>
+            <option value="male">Mr</option>
+          </select>
+
+          <input type="text" class="form-control" id="firstName" placeholder="Enter your name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last name</label>
+        <span> <input type="text" class="form-control" id="lastName" placeholder="Enter your last name"> </span>
+      </div>
+
+      <div class="form-group">
+        <label for="userEmail">Email address*</label>
+        <span> <input type="text" class="form-control" id="userEmail" placeholder="Enter an email"> </span>
+      </div>
+
+      <div class="form-group">
+        <label for="passkey">Password*</label>
+        <span> <input type="password" class="form-control" id="passkey" placeholder="Enter a unique password">
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Phone number</label>
+        <input type="string" class="form-control" id="phoneNumber" placeholder="Enter a phone number"
+          onkeypress="return isNumberKey(event)">
+      </div>
+
+      <div class="d-flex">
+        <div class="form-group">
+          <label for="postcode">Postcode</label>
+          <input type="string" class="form-control" id="postcode" placeholder="Postcode"
+            onkeypress="return isNumberKey(event)">
+        </div>
+
+        <div class="form-group">
+          <label for="DOB">Date of Birth</label> <br>
+          <input id="DOB" type="text" name="daterange" />
+        </div>
+      </div>
+
+      <div class="d-flex">
+        <a href="account-already">Already have an account?</a>
+        <button type="submit" class="submit_btn">Create account -></button>
+      </div>
+      
+    </div>
+
+    <div class="companyDetails_signupTrade">
+
+
+    </div>
+  </form>
+
+</div>
+
+
+<script>
+
+  //phone number numerical data validation
+  function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }
+
+  $('#DOB').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    locale: {
+      format: 'DD/MM/YYYY'
+    }
+  });
+
+  $('.submit_btn').click(function (e) {
+    e.preventDefault();
+    var gender = $('#gender').val()
+    var firstName = $('#firstName').val()
+    var lastName = $('#lastName').val()
+    var userEmail = $('#userEmail').val()
+    var passkey = $('#passkey').val()
+    var phoneNumber = $('#phoneNumber').val()
+    var postcode = $('#postcode').val()
+    var DOB = $('#DOB').val()
+
+    console.log('gender: ', gender);
+    console.log('firstName: ' + firstName)
+    console.log('DOB: ', DOB);
+    console.log('userEmail: ', userEmail);
+
+
+    //empty field validation
+    if (($('#firstName').val() == '') || ($('#lastName').val() == '') || ($('#userEmail').val() == '') || ($('#passkey').val() == '') || ($('#phoneNumber').val() == '') || ($('#DOB').val() == '') || ($('#postcode').val() == '')) {
+      alert("ERROR: Empty field(s).");
+    }
+    //email format validation
+    else if (validator.isEmail(String(userEmail)) == false) { alert("Invalid Email Address!"); }
+
+    else {
+
+      $.ajax(
+        {
+          url: "/auth/trade/signup",
+          type: "POST",
+          data: {
+            gender: gender,
+            firstname: firstName,
+            lastname: lastName,
+            email: userEmail,
+            password: passkey,
+            phone_no: phoneNumber,
+            postal_Code: postcode,
+            DOB: DOB
+          },
+          success: function (obj) {
+            console.log(obj.msg)
+          }
+        })
+    }
+  })
+</script>
+
+<%- include('./partials/html_end.ejs') %>

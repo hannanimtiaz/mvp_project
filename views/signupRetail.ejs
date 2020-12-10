@@ -1,6 +1,6 @@
 <%- include('./partials/html_start.ejs') %>
 
-<div class="container-fluid">
+<div class="container-fluid signupRetail-page">
     <h1>Create an Account</h1>
 
     <form>
@@ -33,10 +33,16 @@
             </span>
         </div>
 
+        <div class="form-group">
+            <label for="phoneNumber">Phone number</label>
+            <input type="string" class="form-control" id="phoneNumber" placeholder="Enter a phone number"
+                onkeypress="return isNumberKey(event)">
+        </div>
+
         <div class="d-flex">
             <div class="form-group">
-                <label for="phoneNumber">Phone number</label>
-                <input type="string" class="form-control" id="phoneNumber" placeholder="Enter a phone number"
+                <label for="postcode">Postcode</label>
+                <input type="string" class="form-control" id="postcode" placeholder="Postcode"
                     onkeypress="return isNumberKey(event)">
             </div>
 
@@ -81,6 +87,7 @@
         var userEmail = $('#userEmail').val()
         var passkey = $('#passkey').val()
         var phoneNumber = $('#phoneNumber').val()
+        var postcode = $('#postcode').val()
         var DOB = $('#DOB').val()
 
         console.log('gender: ', gender);
@@ -90,7 +97,7 @@
 
 
         //empty field validation
-        if (($('#firstName').val() == '') || ($('#lastName').val() == '') || ($('#userEmail').val() == '') || ($('#passkey').val() == '') || ($('#phoneNumber').val() == '') || ($('#DOB').val() == '')) {
+        if (($('#firstName').val() == '') || ($('#lastName').val() == '') || ($('#userEmail').val() == '') || ($('#passkey').val() == '') || ($('#phoneNumber').val() == '') || ($('#DOB').val() == '') || ($('#postcode').val() == '')) {
             alert("ERROR: Empty field(s).");
         }
         //email format validation
@@ -109,6 +116,7 @@
                         email: userEmail,
                         password: passkey,
                         phone_no: phoneNumber,
+                        postal_Code: postcode,
                         DOB: DOB
                     },
                     success: function (obj) {
