@@ -22,7 +22,7 @@ exports.postSignup = async function (req, res) {
     }
     else {
         let retail = await RetailModel.create({
-            gender, firstname, lastname, email, password, phone_no, DOB
+            gender, firstname, lastname, email, password, phone_no, postal_Code, DOB
         });
         console.log('retail: ', retail);
 
