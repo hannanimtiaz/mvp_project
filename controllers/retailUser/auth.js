@@ -1,4 +1,5 @@
 var RetailModel = require('../../models/retailUser');
+var validator = require('validator');
 
 
 exports.getLogin = function (req, res, next) {
@@ -12,21 +13,29 @@ exports.getSignup = function (req, res, next) {
 exports.postSignup = async function (req, res) {
     const { gender, firstname, lastname, email, password, phone_no, DOB } = req.body;
 
-    let retail = await RetailModel.create({
-        gender, firstname, lastname, email, password, phone_no, DOB
-    });
-    console.log('retail: ', retail);
+    let isEmail = RetailModel.exists({ email: email })
 
-    if (retail)
-    {
+    if (isEmail) {
         return res.json({
-            msg: 'User created'
-        });
+            msg: 'User already exists'
+        })
     }
-    else{
-        return res.json({
-            msg: 'User not created'
+    else {
+        let retail = await RetailModel.create({
+            gender, firstname, lastname, email, password, phone_no, DOB
         });
+        console.log('retail: ', retail);
+
+        if (retail) {
+            return res.json({
+                msg: 'User created'
+            });
+        }
+        else {
+            return res.json({
+                msg: 'User not created'
+            });
+        }
     }
 }
 

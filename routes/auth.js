@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var validator = require('validator');
 
 
 const { authController: adminAuth } = require('../controllers/admin');
