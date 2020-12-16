@@ -16,7 +16,6 @@ router.get('/', auth.isNotLoggedIn, (req, res) => {
   res.render('index', {title:"Express"});
 });
 
-
 /* GET Logout route. */
 router.get('/logout', (req, res) => {
   req.session.destroy();

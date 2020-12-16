@@ -1,139 +1,325 @@
 <%- include('./partials/html_start.ejs') %>
 
-<div class="container-fluid signupTrade_page">
-  <h1>Create an Account</h1>
+  <link rel="stylesheet" href="/stylesheets/signupTrade.css">
 
-  <form>
+  <div class="container-fluid signupTrade_page mx-5">
+    <h1>Create an Account</h1>
 
-    <div class="yourDetails_signupTrade">
+    <form>
 
-      <div class="form-group">
-        <label for="firstName">First name</label>
-        <div class="d-flex">
-          <select id="gender">
-            <option value="female">Miss</option>
-            <option value="male">Mr</option>
-          </select>
+      <div id="yourDetails_signupTrade">
 
-          <input type="text" class="form-control" id="firstName" placeholder="Enter your name">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="lastName">Last name</label>
-        <span> <input type="text" class="form-control" id="lastName" placeholder="Enter your last name"> </span>
-      </div>
-
-      <div class="form-group">
-        <label for="userEmail">Email address*</label>
-        <span> <input type="text" class="form-control" id="userEmail" placeholder="Enter an email"> </span>
-      </div>
-
-      <div class="form-group">
-        <label for="passkey">Password*</label>
-        <span> <input type="password" class="form-control" id="passkey" placeholder="Enter a unique password">
-        </span>
-      </div>
-
-      <div class="form-group">
-        <label for="phoneNumber">Phone number</label>
-        <input type="string" class="form-control" id="phoneNumber" placeholder="Enter a phone number"
-          onkeypress="return isNumberKey(event)">
-      </div>
-
-      <div class="d-flex">
         <div class="form-group">
-          <label for="postcode">Postcode</label>
-          <input type="string" class="form-control" id="postcode" placeholder="Postcode"
+          <label for="firstName">First name</label>
+          <div class="d-flex">
+            <select id="gender">
+              <option value="female">Miss</option>
+              <option value="male">Mr</option>
+            </select>
+
+            <input type="text" class="form-control" id="firstName" placeholder="Enter your name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
+        </div>
+
+        <div class="form-group">
+          <label for="userEmail">Email address*</label>
+          <input type="text" class="form-control" id="userEmail" placeholder="Enter an email">
+        </div>
+
+        <div class="form-group">
+          <label for="passkey">Password*</label>
+          <input type="password" class="form-control" id="passkey" placeholder="Enter a unique password">
+
+        </div>
+
+        <div class="form-group">
+          <label for="phoneNumber">Phone number</label>
+          <input type="string" class="form-control" id="phoneNumber" placeholder="Enter a phone number"
             onkeypress="return isNumberKey(event)">
         </div>
 
-        <div class="form-group">
-          <label for="DOB">Date of Birth</label> <br>
-          <input id="DOB" type="text" name="daterange" />
+        <div class="d-flex">
+          <div class="form-group">
+            <label for="postcode">Postcode</label>
+            <input type="string" class="form-control" id="postcode" placeholder="Postcode"
+              onkeypress="return isNumberKey(event)">
+          </div>
+
+          <div class="form-group">
+            <label for="DOB">Date of Birth</label> <br>
+            <input id="DOB" type="text" name="daterange" />
+          </div>
         </div>
+
+        <div class="d-flex">
+          <a href="/auth/trade/login">Already have an account?</a>
+          <button type="button" id="nextOne">Next -></button>
+        </div>
+
       </div>
 
-      <div class="d-flex">
-        <a href="account-already">Already have an account?</a>
-        <button type="submit" class="submit_btn">Create account -></button>
+      <div id="companyDetails_signupTrade">
+
+        <div class="form-group">
+          <label for="companyName">Company name*</label>
+          <input type="text" class="form-control" id="companyName" placeholder="Enter legal business name">
+        </div>
+
+        <div class="form-group">
+          <label for="businessNumber">Business number*</label>
+          <input type="text" class="form-control" id="businessNumber" placeholder="Enter business number">
+        </div>
+
+        <div class="form-group">
+          <label for="tradingName">Trading name</label>
+          <input type="text" class="form-control" id="tradingName" placeholder="Enter trading name">
+        </div>
+
+        <div class="form-group">
+          <label for="address1">Address Line 1*</label>
+          <input type="text" class="form-control" id="address1" placeholder="Address line 1">
+        </div>
+
+        <div class="form-group">
+          <label for="address2">Address Line 2</label>
+          <input type="text" class="form-control" id="address2" placeholder="Address line 2">
+        </div>
+
+        <div class="d-flex">
+
+          <div class="form-group">
+            <label for="city">City*</label>
+            <input type="text" class="form-control" id="city" placeholder="City">
+          </div>
+
+          <div class="form-group">
+            <label for="postcode_company">Postcode*</label>
+            <input type="string" class="form-control" id="postcode_company" placeholder="Postcode"
+              onkeypress="return isNumberKey(event)">
+          </div>
+
+        </div>
+
+        <div class="d-flex">
+          <button type="button" id="backOne">
+            <- Back </button>
+              <button type="button" id="nextTwo">Next -></button>
+        </div>
+
       </div>
-      
-    </div>
 
-    <div class="companyDetails_signupTrade">
+      <div id="additionalInfo_signupTrade">
+
+        <div class="form-group">
+          <label for="businessType">Business type</label>
+          <select id="businessType" placeholder="Select business type">
+            <option value="" selected>Select type</option>
+            <option value="alpha">alpha</option>
+            <option value="bravo">bravo</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="companyRole">Role in company</label>
+          <select id="businessType">
+            <option value="" selected>Select role</option>
+            <option value="alpha">alpha</option>
+            <option value="bravo">bravo</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="businessType">Company size</label>
+          <select id="businessType">
+            <option value="" selected>Select size</option>
+            <option value="alpha">alpha</option>
+            <option value="bravo">bravo</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="site_url">Company website</label>
+          <input type="text" class="form-control" id="site_url" placeholder="Enter URL">
+        </div>
+
+        <div class="form-group">
+          <label for="instaHandle">Instagram handle</label>
+          <div class="input-group">
+            <div class="input-group-addon"> @ </div>
+            <input type="text" class="form-control" id="instaHandle" placeholder="Enter handle">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="additionalInformation">Additional information</label>
+          <input type="text" class="form-control" id="site_url" placeholder="Enter any supporting info">
+        </div>
+
+        <div class="form-group">
+          <label class="custom-control-label" for="termsAndConditions">
+            <input type="checkbox" class="custom-control-input" id="termsAndConditions">
+            Agree to <a href="#">terms and condiotions</a></label>
+        </div>
+
+        <div class="form-group">
+          <label class="custom-control-label" for="subscription">Subscribe to marketing material</label>
+          <input type="checkbox" class="custom-control-input" id="subscription">
+        </div>
+
+        <div class="form-group">
+          <button type="button" class="recaptcha">RECAPTCHA</button>
+        </div>
+
+        <div class="d-flex">
+          <button type="button" id="backTwo">
+            <- Back </button>
+              <button type="submit" class="submit_btn">Submit -></button>
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
 
 
-    </div>
-  </form>
+  <script>
 
-</div>
+    const nextOne = document.getElementById('nextOne');
+    const backOne = document.getElementById('backOne');
+    const nextTwo = document.getElementById('nextTwo');
+    const backTwo = document.getElementById('backTwo');
 
+    $(document).ready(function () {
+      showYourDetails();
+    });
 
-<script>
+    nextOne.addEventListener('click', function (e) {
+      showCompanyDetails();
+    });
 
-  //phone number numerical data validation
-  function isNumberKey(evt) {
-    var charCode = (evt.which) ? evt.which : evt.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57))
-      return false;
-    return true;
-  }
+    backOne.addEventListener('click', function (e) {
+      showYourDetails();
+    });
 
-  $('#DOB').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    locale: {
-      format: 'DD/MM/YYYY'
+    nextTwo.addEventListener('click', function (e) {
+      showAdditionalInfo();
+    });
+
+    backTwo.addEventListener('click', function (e) {
+      showCompanyDetails();
+    });
+
+    function showYourDetails() {
+      $("#yourDetails_signupTrade").show();
+      $("#companyDetails_signupTrade").hide();
+      $("#additionalInfo_signupTrade").hide();
     }
-  });
 
-  $('.submit_btn').click(function (e) {
-    e.preventDefault();
-    var gender = $('#gender').val()
-    var firstName = $('#firstName').val()
-    var lastName = $('#lastName').val()
-    var userEmail = $('#userEmail').val()
-    var passkey = $('#passkey').val()
-    var phoneNumber = $('#phoneNumber').val()
-    var postcode = $('#postcode').val()
-    var DOB = $('#DOB').val()
-
-    console.log('gender: ', gender);
-    console.log('firstName: ' + firstName)
-    console.log('DOB: ', DOB);
-    console.log('userEmail: ', userEmail);
-
-
-    //empty field validation
-    if (($('#firstName').val() == '') || ($('#lastName').val() == '') || ($('#userEmail').val() == '') || ($('#passkey').val() == '') || ($('#phoneNumber').val() == '') || ($('#DOB').val() == '') || ($('#postcode').val() == '')) {
-      alert("ERROR: Empty field(s).");
+    function showCompanyDetails() {
+      $("#yourDetails_signupTrade").hide();
+      $("#companyDetails_signupTrade").show();
+      $("#additionalInfo_signupTrade").hide();
     }
-    //email format validation
-    else if (validator.isEmail(String(userEmail)) == false) { alert("Invalid Email Address!"); }
 
-    else {
-
-      $.ajax(
-        {
-          url: "/auth/trade/signup",
-          type: "POST",
-          data: {
-            gender: gender,
-            firstname: firstName,
-            lastname: lastName,
-            email: userEmail,
-            password: passkey,
-            phone_no: phoneNumber,
-            postal_Code: postcode,
-            DOB: DOB
-          },
-          success: function (obj) {
-            console.log(obj.msg)
-          }
-        })
+    function showAdditionalInfo() {
+      $("#yourDetails_signupTrade").hide();
+      $("#companyDetails_signupTrade").hide();
+      $("#additionalInfo_signupTrade").show();
     }
-  })
-</script>
 
-<%- include('./partials/html_end.ejs') %>
+    //phone number numerical data validation
+    function isNumberKey(evt) {
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+      return true;
+    }
+
+    $('#DOB').daterangepicker({
+      singleDatePicker: true,
+      showDropdowns: true,
+      locale: {
+        format: 'DD/MM/YYYY'
+      }
+    });
+
+    //ADD TRADE ACCOUNT DETAILS
+    $('.submit_btn').click(function (e) {
+
+      e.preventDefault();
+      var gender = $('#gender').val()
+      var firstName = $('#firstName').val()
+      var lastName = $('#lastName').val()
+      var userEmail = $('#userEmail').val()
+      var passkey = $('#passkey').val()
+      var phoneNumber = $('#phoneNumber').val()
+      var postcode = $('#postcode').val()
+      var DOB = $('#DOB').val()
+      var companyName = $('#companyName').val()
+      var businessNumber = $('#businessNumber').val()
+      var tradingName = $('#tradingName').val()
+      var address = ($('#address1').val() + $('#address2').val())
+      var city = $('#city').val()
+      var postcode_company = $('#postcode_company').val()
+      var businessType = $('#businessType').val()
+      var companyRole = $('#companyRole').val()
+      var businessType = $('#businessType').val()
+      var site_url = $('#site_url').val()
+      var instaHandle = $('#instaHandle').val()
+      var additionalInformation = $('#additionalInformation').val()
+      var termsAndConditions = $('#termsAndConditions').val()
+      var subscription = $('#subscription').val()
+
+
+      //empty field validation
+      if (($('#firstName').val() == '') || ($('#lastName').val() == '') || ($('#userEmail').val() == '') || ($('#passkey').val() == '') || ($('#companyName').val() == '') || ($('#businessNumber').val() == '') || ($('#address1').val() == '') || ($('#city').val() == '') || ($('#postcode_company').val() == '')) {
+        alert("ERROR: Empty field(s).");
+      }
+
+      else if (termsAndConditions == 'unchecked') {
+        alert("ERROR: Agree to terms and conditions before proceeding.");
+      }
+      //email format validation
+      else if (validator.isEmail(String(userEmail)) == false) { alert("Invalid Email Address!"); }
+
+      else {
+
+        $.ajax(
+          {
+            url: "/auth/trade/signup",
+            type: "POST",
+            data: {
+              gender: gender,
+              firstname: firstName,
+              lastname: lastName,
+              email: userEmail,
+              password: passkey,
+              phone_no: phoneNumber,
+              postal_Code: postcode,
+              DOB: DOB,
+              companyName: companyName,
+              businessNumber: businessNumber,
+              //NAME OR NUMBER? CORRECTION IN MODELS
+              tradingNumber: tradingName,
+              address: address,
+              city: String,
+              businessType: String,
+              companyRole: String,
+              companySize: String
+            },
+            success: function (obj) {
+              console.log(obj.msg)
+            }
+          })
+      }
+    })
+
+  </script>
+
+  <%- include('./partials/html_end.ejs') %>

@@ -21,7 +21,7 @@ exports.postSignup = async function (req, res) {
     }
     else {
         let trade = await TradeModels.create({
-            gender, firstname, lastname, email, password, phone_no, DOB, companyName, businessNumber, tradingNumber, address, city, businessType, companyRole, companySize
+            gender, firstname, lastname, email, password, phone_no, DOB, companyName, businessNumber, postal_code, tradingNumber, address, city, businessType, companyRole, companySize
         });
         console.log('trade: ', trade);
 
