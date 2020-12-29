@@ -1,0 +1,105 @@
+<%- include('../partials/html_start.ejs') %>
+
+  <div class="container-fluid product_page mx-5">
+
+    <h1>Create Products Page</h1>
+
+    <form>
+      <div class="form-group">
+        <label for="productCode">Product Code</label>
+        <input type="string" class="form-control" id="productCode" placeholder="Enter the product code">
+      </div>
+
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+      </div>
+
+      <div class="form-group">
+        <label for="productValue">Value per Unit</label>
+        <div class="input-group">
+          <div class="input-group-addon"> £ </div>
+          <input type="string" class="form-control" id="productValue" placeholder="Enter product value per unit"
+            onkeypress="return isNumberKey(event)">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="supplierName">Supplier Name</label>
+        <input type="text" class="form-control" id="supplierName" placeholder="Enter supplier's name">
+      </div>
+
+      <div class="form-group">
+        <label for="productColor">Product Color</label>
+        <input type="text" class="form-control" id="productColor" placeholder="Enter color of the product">
+      </div>
+
+      <div class="form-group">
+        <label for="productSizeUnit">Product Size</label>
+        <div class="d-flex">
+          <select id="productSizeUnit">
+            <option value="" selected>Select unit</option>
+            <option value="milimeters">milimeters</option>
+            <option value="meters">meters</option>
+            <option value="centimeters">centimeters</option>
+            <option value="inches">inches</option>
+            <option value="feet">feet</option>
+          </select>
+
+          <input type="text" class="form-control" id="productSizeWidth" placeholder="Enter width of the product">
+          <input type="text" class="form-control" id="productSizeHeight" placeholder="Enter height of the product">
+        </div>
+      </div>
+
+      <button type="submit" class="submit_btn">Submit</button>
+
+    </form>
+
+  </div>
+
+  <script>
+    // createproductpost
+
+    $('.submit_btn').click(function (e) {
+      e.preventDefault();
+      var productCode = $('#productCode').val()
+      var productName = $('#productName').val()
+      var productValue = $('#productValue').val()
+      var supplierName = $('#supplierName').val()
+      var productColor = $('#productColor').val()
+      var productSizeUnit = $('#productSizeUnit').val()
+      var productSizeWidth = $('#productSizeWidth').val()
+      var productSizeHeight = $('#productSizeHeight').val()
+
+
+      //empty field validation
+      if (($('#productCode').val() == '') || ($('#productName').val() == '') || ($('#productValue').val() == '') || ($('#supplierName').val() == '')) {
+        alert("ERROR: Empty field(s).");
+      }
+
+      else {
+
+        $.ajax(
+          {
+            url: "/admin/createproductpost",
+            type: "POST",
+            data: {
+              productCode: productCode,
+              productName: productName,
+              productValue: productValue,
+              supplierName: supplierName,
+              productColor: productColor,
+              productSizeUnit: productSizeUnit,
+              productSizeWidth: productSizeWidth,
+              productSizeHeight: productSizeHeight
+            },
+            success: function (obj) {
+              console.log(obj.msg)
+            }
+          })
+      }
+    })
+
+  </script>
+
+  <%- include('../partials/html_end.ejs') %>

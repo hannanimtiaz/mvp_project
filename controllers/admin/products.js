@@ -4,22 +4,39 @@ exports.getProductsDetail = function (req, res, next) {
     res.render('products');
 }
 
-exports.createProduct = async function (req, res) {
-    const { name } = req.body;
+exports.createProductGet = async function (req, res) {
+    res.render('admin/createProduct');
+}
 
-    let product = await ProductModel.create({
-        name
-    });
-    console.log('product: ', product);
+exports.createProductPost = async function (req, res) {
 
-    if (product) {
+    const { productCode, productName, productValue, supplierName, productColor, productSizeUnit, productSizeWidth, productSizeHeight } = req.body;
+
+    let isProduct = await ProductModel.exists({ productCode: productCode })
+
+    if (isProduct) {
         return res.json({
-            msg: 'Product created'
-        });
+            msg: 'Product already exists'
+        })
     }
     else {
-        return res.json({
-            msg: 'Product not created'
+        let product = await ProductModel.create({
+            productCode, productName, productValue, supplierName, productColor, productSizeUnit, productSizeWidth, productSizeHeight
         });
+
+        console.log('product: ', product);
+
+        if (product) {
+            console.log('Product created');
+        }
+        else {
+            console.log('Product not created');
+        }
     }
+}
+
+exports.showProductsget = async function (req, res) {
+    
+    let getAllProducts = await ProductModel.find({});
+    res.render('admin/showProducts', {products:getAllProducts});
 }
