@@ -1,9 +1,12 @@
 const authController = require('./retailUser/auth');
+const projectController = require('./retailUser/project');
+
 
 
 module.exports = {
     authController,
+    projectController,
     getHome: function (req, res, next) {
-        res.render('admin/index');
+        res.render('retail/index');
     }
 }

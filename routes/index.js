@@ -6,11 +6,15 @@ var auth = require('../middleware/auth')
 
 var authRouter = require('./auth');
 var adminRouter = require('./admin');
+var retailRouter = require('./retailUser');
+
 
 
 router.use('/auth', auth.isNotLoggedIn, authRouter);
 
 router.use('/admin', auth.isAdmin, adminRouter);
+
+router.use('/retail', auth.isRetailer, retailRouter)
 
 router.get('/', auth.isNotLoggedIn, (req, res) => {
   res.render('index', {title:"Express"});

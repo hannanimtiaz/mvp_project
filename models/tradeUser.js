@@ -25,7 +25,6 @@ var tradeSchema = new Schema({
 
 });
 
-var Trade = mongoose.model('Trade',
-    tradeSchema);
+var Trade = mongoose.model('Trade', tradeSchema);
 
 module.exports = Trade;

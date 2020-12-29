@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-orange">
+  <a class="navbar-brand" href="#">MVP PROJECT</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <% if ( type == "retail" ) { %>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/retail/">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/retail/projects">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/retail/products">Products</a>
+        </li>
+      </ul>
+      <% } %>
+      <div class="dropdown-menu dropdown-menu-right">
+        <% if(type === 'retail') { %>
+        <a href="/retail/profile" class="dropdown-item has-icon">
+            <i class="far fa-user"></i> Profile
+        </a>
+        <% } else if(type === 'trade') { %>
+        <a href="/trade/profile" class="dropdown-item has-icon">
+            <i class="far fa-user"></i> Profile
+        </a>
+        <% }else if(type === 'admin'){ %>
+        <a href="/admin/profile" class="dropdown-item has-icon">
+            <i class="far fa-user"></i> Profile
+        </a>
+        <% }%>
+        <a href="/logout" class="dropdown-item has-icon text-danger">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+  </div>
+</nav>

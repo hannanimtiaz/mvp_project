@@ -1,8 +1,21 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+.bg-orange{
+  background-color: orange;
+}
+
+.create_program{
+  padding: 10px;
+  background-color:orangered;
+  color: black;
+  text-decoration: none;
+}
+
+.float-right{
+  float:right
 }
