@@ -1,0 +1,48 @@
+<%- include('../partials/html_start.ejs') %>
+
+    <div>
+        <form action="" class="createProject">
+            <div class="form-group">
+                <label for="projectName">Project Name</label>
+                <input type="text" class="form-control" id="projectName" placeholder="Enter Project Name">
+            </div>
+            <div class="form-group">
+                <label for="projectStyle">Project Style</label>
+                <input type="text" class="form-control" id="projectStyle" placeholder="Enter Project style">
+            </div>
+            <button type="submit" class="submit_btn">Create Project -></button>
+        </form>
+    </div>
+
+    <script>
+        $('.createProject').submit(function (e) {
+            e.preventDefault()
+            let name = $('#projectName').val()
+            let style = $('#projectStyle').val()
+            $.ajax({
+                type: "POST",
+                url: '/retail/createProject',
+                dataType: 'json',
+                data: {
+                    name: name,
+                    style: style
+                },
+                success: function (data) {
+                    console.log('data: ', data);
+                    if (data.status === "success") {
+                        alert('project created')
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000);
+
+                    } else {
+                        alert("There was an error try again")
+                    }
+
+                }
+
+            })
+        })
+    </script>
+
+    <%- include('../partials/html_end.ejs') %>

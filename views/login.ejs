@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-
-<body>
-    <h1><%= type %> Login</h1>
+<%- include('./partials/html_start.ejs') %>
+    <h1>
+        <%= type %> Login
+    </h1>
 
     <input type="text" name="" id="email">
     <input type="text" id="password">
     <button class="login">Login</button>
-</body>
-
-<script>
+    
+    <script>
     $('.login').click(function () {
         event.preventDefault();
         var email = $('#email').val()
@@ -23,15 +16,17 @@
         console.log('password: ', password);
         let type = '<%= type %>';
         let url
-        if(type == 'Admin'){
+        console.log('type: ', type);
+        if (type == 'Admin') {
             url = '/auth/admin/login'
         }
-        else if(type == 'Retail'){
+        else if (type == 'Retail') {
             url = '/auth/retail/login'
         }
-        else{
+        else {
             url = '/auth/trade/login'
         }
+        console.log('url: ', url);
         $.ajax({
             type: "POST",
             url: url,
@@ -42,12 +37,17 @@
             },
             success: function (data) {
                 console.log('data: ', data);
-
+                if (data.status === "success") {
+                    window.location.replace(data.redirect);
+                }else{
+                    alert("User Not found")
+                }
+                
             }
-
+            
         })
-
+        
     })
 </script>
 
-</html>
+<%- include('./partials/html_end.ejs') %>

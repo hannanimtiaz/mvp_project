@@ -2,7 +2,7 @@ var TradeModel = require('../../models/tradeUser');
 
 
 exports.getLogin = function (req, res, next) {
-    res.render('login', { type: 'Trade User' });
+    res.render('login', { type: 'Trade' });
 }
 
 exports.getSignup = function (req, res, next) {
@@ -41,7 +41,7 @@ exports.postSignup = async function (req, res) {
 exports.postLogin = async function (req, res, next) {
     const { email, password } = req.body;
 
-    let trader = await TradeModel.findOne({});
+    let trader = await TradeModel.findOne({email});
 
     if (!trader) {
         return res.json({

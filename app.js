@@ -29,26 +29,26 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-// app.use((req, res, next) => {
-//   res.locals = {};
+app.use((req, res, next) => {
+  res.locals = {};
 
-//   res.locals.type = req.session.type;
-//   res.locals._id = req.session._id;
-//   res.locals.email = req.session.email;
+  res.locals.type = req.session.type;
+  res.locals._id = req.session._id;
+  res.locals.email = req.session.email;
 
-//   next()
-// });
+  next()
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

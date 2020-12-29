@@ -3,7 +3,7 @@ var validator = require('validator');
 
 
 exports.getLogin = function (req, res, next) {
-    res.render('login', { type: 'Retail User' });
+    res.render('login', { type: 'Retail' });
 }
 
 exports.getSignup = function (req, res, next) {
@@ -11,9 +11,9 @@ exports.getSignup = function (req, res, next) {
 }
 
 exports.postSignup = async function (req, res) {
-    const { gender, firstname, lastname, email, password, phone_no, DOB } = req.body;
+    const { gender, firstname, lastname, email, password, phone_no, postal_Code, DOB } = req.body;
 
-    let isEmail = RetailModel.exists({ email: email })
+    let isEmail = await RetailModel.exists({ email: email })
 
     if (isEmail) {
         return res.json({
@@ -42,7 +42,8 @@ exports.postSignup = async function (req, res) {
 exports.postLogin = async function (req, res, next) {
     const { email, password } = req.body;
 
-    let retail = await RetailModel.findOne({});
+    let retail = await RetailModel.findOne({ email });
+    console.log('retail: ', retail);
 
     if (!retail) {
         return res.json({
