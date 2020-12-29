@@ -1,12 +1,11 @@
 const ProjectModel = require('../../models/project')
-const ClientModel = require('../../models/client')
 
 
 exports.getProjects = async function (req, res) {
     let projects = await ProjectModel.find()
     console.log('projects: ', projects);
-    if (!projects.length) {
-        projects = null
+    if(!projects.length){
+        projects= null
     }
     res.render('trade/projects', { projects })
 }
@@ -16,13 +15,9 @@ exports.getCreateProject = function (req, res) {
 }
 
 exports.postCreateProject = async function (req, res) {
-    let { name, style, clientName, clientAddress } = req.body
-    let project = await ProjectModel.create({ name, style })
-    let client = await ClientModel.create({ name: clientName, address: clientAddress })
-    console.log('client: ', client);
-    project.client_id = client._id
-    await project.save()
-    console.log('project: ', project);
+    let { name, style } = req.body
+    let project = ProjectModel.create({ name, style })
+
     if (project) {
         res.json({
             status: "success",
@@ -43,7 +38,7 @@ exports.getUpdateProject = async function (req, res) {
 
     let project = await ProjectModel.findById(project_id)
 
-    res.render('trade/updateProject', { project });
+    res.render('trade/updateProject', {project});
 
 }
 
@@ -72,7 +67,7 @@ exports.postUpdateProject = async function (req, res) {
 }
 
 exports.postDeleteProject = async function (req, res) {
-    let { id } = req.body
+    let{ id} = req.body
     console.log('req.body: ', req.body);
     console.log('id: ', id);
     let project = await ProjectModel.findOne({ _id: id })

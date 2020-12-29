@@ -16,7 +16,7 @@ exports.getCreateProject = function (req, res) {
 
 exports.postCreateProject = async function (req, res) {
     let { name, style } = req.body
-    let project = ProjectModel.create({ name, style })
+    let project = await ProjectModel.create({ name, style })
 
     if (project) {
         res.json({
