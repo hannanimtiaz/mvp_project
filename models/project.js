@@ -10,6 +10,7 @@ var projectSchema = new Schema({
     retail_id: { type: Schema.Types.ObjectId, ref: 'Retail' },
     trade_id: { type: Schema.Types.ObjectId, ref: 'Trade' },
     client_id: { type: Schema.Types.ObjectId, ref: 'Client' },
+    room_ids: [{ type: Schema.Types.ObjectId, ref: 'Room' }],
 });
 
 var Project = mongoose.model('Project', projectSchema);

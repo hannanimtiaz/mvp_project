@@ -7,7 +7,7 @@
             <% projects.forEach(project=> { %>
                 <div class="p-2" project_id="<%=project._id%>" style="background-color: yellow; width: 100px;">
                     <p><b>Name:</b>
-                        <%= project.name %>
+                        <a href="/retail/projectPage/<%= project._id %>/"><%= project.name %></a>
                     </p>
                     <p><b>Style:</b>
                         <%= project.style %>

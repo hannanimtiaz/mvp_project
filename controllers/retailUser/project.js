@@ -33,6 +33,21 @@ exports.postCreateProject = async function (req, res) {
     }
 }
 
+exports.getProductPage = async function(req, res){
+    console.log("yelloowww");
+    let project_id = req.params.project_id
+    let project = await ProjectModel.findById(project_id).populate({
+        path:'room_ids',
+        model:'Room',
+        populate:{
+            path:'product_ids',
+            model:'Product'
+        }
+    })
+
+    res.render('retail/projectPage',{project});
+}
+
 exports.getUpdateProject = async function (req, res) {
     let project_id = req.params.project_id
 
