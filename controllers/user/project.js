@@ -1,23 +1,28 @@
 const ProjectModel = require('../../models/project')
+const ClientModel = require('../../models/client')
 
 
 exports.getProjects = async function (req, res) {
-    let projects = await ProjectModel.find()
+    let projects = await ProjectModel.find({ user_id: req.session._id })
     console.log('projects: ', projects);
-    if(!projects.length){
-        projects= null
+    if (!projects.length) {
+        projects = null
     }
-    res.render('trade/projects', { projects })
+    res.render('user/projects', { projects })
 }
 
 exports.getCreateProject = function (req, res) {
-    res.render('trade/createProject');
+    res.render('user/createProject');
 }
 
 exports.postCreateProject = async function (req, res) {
-    let { name, style } = req.body
-    let project = ProjectModel.create({ name, style })
-
+    let { name, style, clientName, clientAddress } = req.body
+    let project = await ProjectModel.create({ name, style, user_id: req.session._id })
+    let client = await ClientModel.create({ name: clientName, address: clientAddress })
+    console.log('client: ', client);
+    project.client_id = client._id
+    await project.save()
+    console.log('project: ', project);
     if (project) {
         res.json({
             status: "success",
@@ -33,12 +38,28 @@ exports.postCreateProject = async function (req, res) {
     }
 }
 
+exports.getProjectPage = async function (req, res) {
+    let project_id = req.params.project_id
+
+    let project = await ProjectModel.findById(project_id).populate('client_id').populate('user_id').populate({
+        path: 'room_ids',
+        model: 'Room',
+        populate: {
+            path: 'project_ids',
+            model: 'Project',
+        }
+    })
+    res.render('user/projectPage', { project });
+
+
+}
+
 exports.getUpdateProject = async function (req, res) {
     let project_id = req.params.project_id
 
-    let project = await ProjectModel.findById(project_id)
+    let project = await ProjectModel.findById(project_id).populate('client_id').populate('user_id')
 
-    res.render('trade/updateProject', {project});
+    res.render('user/updateProject', { project });
 
 }
 
@@ -67,7 +88,7 @@ exports.postUpdateProject = async function (req, res) {
 }
 
 exports.postDeleteProject = async function (req, res) {
-    let{ id} = req.body
+    let { id } = req.body
     console.log('req.body: ', req.body);
     console.log('id: ', id);
     let project = await ProjectModel.findOne({ _id: id })

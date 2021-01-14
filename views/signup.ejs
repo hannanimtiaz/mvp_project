@@ -1,13 +1,13 @@
 <%- include('./partials/html_start.ejs') %>
 
-  <link rel="stylesheet" href="/stylesheets/signupTrade.css">
+  <link rel="stylesheet" href="/stylesheets/signup.css">
 
-  <div class="container-fluid signupTrade_page mx-5">
+  <div class="container-fluid signup_page mx-5">
     <h1>Create an Account</h1>
 
     <form>
 
-      <div id="yourDetails_signupTrade">
+      <div id="yourDetails_signup">
 
         <div class="form-group">
           <label for="firstName">First name</label>
@@ -57,13 +57,13 @@
         </div>
 
         <div class="d-flex">
-          <a href="/auth/trade/login">Already have an account?</a>
+          <a href="/auth/user/login">Already have an account?</a>
           <button type="button" id="nextOne">Next -></button>
         </div>
 
       </div>
 
-      <div id="companyDetails_signupTrade">
+      <div id="companyDetails_signup">
 
         <div class="form-group">
           <label for="companyName">Company name*</label>
@@ -113,7 +113,7 @@
 
       </div>
 
-      <div id="additionalInfo_signupTrade">
+      <div id="additionalInfo_signup">
 
         <div class="form-group">
           <label for="businessType">Business type</label>
@@ -216,21 +216,21 @@
     });
 
     function showYourDetails() {
-      $("#yourDetails_signupTrade").show();
-      $("#companyDetails_signupTrade").hide();
-      $("#additionalInfo_signupTrade").hide();
+      $("#yourDetails_signup").show();
+      $("#companyDetails_signup").hide();
+      $("#additionalInfo_signup").hide();
     }
 
     function showCompanyDetails() {
-      $("#yourDetails_signupTrade").hide();
-      $("#companyDetails_signupTrade").show();
-      $("#additionalInfo_signupTrade").hide();
+      $("#yourDetails_signup").hide();
+      $("#companyDetails_signup").show();
+      $("#additionalInfo_signup").hide();
     }
 
     function showAdditionalInfo() {
-      $("#yourDetails_signupTrade").hide();
-      $("#companyDetails_signupTrade").hide();
-      $("#additionalInfo_signupTrade").show();
+      $("#yourDetails_signup").hide();
+      $("#companyDetails_signup").hide();
+      $("#additionalInfo_signup").show();
     }
 
     //phone number numerical data validation
@@ -249,7 +249,7 @@
       }
     });
 
-    //ADD TRADE ACCOUNT DETAILS
+    //ADD USER ACCOUNT DETAILS
     $('.submit_btn').click(function (e) {
 
       e.preventDefault();
@@ -294,7 +294,7 @@
 
         $.ajax(
           {
-            url: "/auth/trade/signup",
+            url: "/auth/user/signup",
             type: "POST",
             data: {
               gender: gender,

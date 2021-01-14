@@ -29,9 +29,10 @@
             let style = $('#projectStyle').val()
             let clientName =$('#clientName').val()
             let clientAddress =$('#clientAddress').val()
+
             $.ajax({
                 type: "POST",
-                url: '/trade/createProject',
+                url: '/user/createProject',
                 dataType: 'json',
                 data: {
                     name,

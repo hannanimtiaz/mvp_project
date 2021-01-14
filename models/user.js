@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 //Define a schema
 var Schema = mongoose.Schema;
 
-var tradeSchema = new Schema({
+var userSchema = new Schema({
     email: String,
     password: String,
     firstname: String,
@@ -25,6 +25,6 @@ var tradeSchema = new Schema({
 
 });
 
-var Trade = mongoose.model('Trade', tradeSchema);
+var User = mongoose.model('User', userSchema);
 
-module.exports = Trade;
+module.exports = User;

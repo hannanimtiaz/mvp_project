@@ -3,8 +3,8 @@ function redirectUrl(type) {
     console.log('type: ', type);
     if (type === 'admin')
         return '/admin';
-    if (type === 'trade')
-        return '/trade';
+    if (type === 'user')
+        return '/user';
 
     return '/';
 
@@ -21,15 +21,15 @@ module.exports.isAdmin = function (req, res, next) {
     }
 }
 
-// module.exports.isTrader = async function (req, res, next) {
-    module.exports.isTrader = function (req, res, next) {
-    if (req.session.type === 'trade') {
+// module.exports.isuser = async function (req, res, next) {
+    module.exports.isUser = function (req, res, next) {
+    if (req.session.type === 'user') {
 
 
-        // let trader = await TradeModel.find({ _id: req.session._id })
+        // let user = await UserModel.find({ _id: req.session._id })
 
         // console.log('data: ', data);
-        // if (trader.status == 'APPROVED') {
+        // if (user.status == 'APPROVED') {
         //     res.render('student/index', { data });
         // } else {
         //     console.log('next called');

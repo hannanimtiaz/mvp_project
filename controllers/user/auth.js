@@ -1,38 +1,38 @@
-var TradeModel = require('../../models/tradeUser');
+var UserModel = require('../../models/user');
 
 
 exports.getLogin = function (req, res, next) {
-    res.render('login', { type: 'Trade' });
+    res.render('login', { type: 'user' });
 }
 
 exports.getSignup = function (req, res, next) {
-    res.render('signupTrade');
+    res.render('signup');
 }
 
 exports.postSignup = async function (req, res) {
     const { gender, firstname, lastname, email, password, phone_no, postal_code, DOB, companyName, businessNumber, tradingName, address, city, businessType, companyRole, companySize } = req.body;
 
-    let isEmail = await TradeModel.exists({ email: email })
+    let isEmail = await UserModel.exists({ email: email })
 
     if (isEmail) {
         return res.json({
-            msg: 'Trade user already exists'
+            msg: 'User already exists'
         })
     }
     else {
-        let trade = await TradeModel.create({
+        let user = await UserModel.create({
             gender, firstname, lastname, email, password, phone_no, DOB, companyName, businessNumber, postal_code, tradingName, address, city, businessType, companyRole, companySize
         });
-        console.log('trade: ', trade);
+        console.log('user: ', user);
 
-        if (trade) {
+        if (user) {
             return res.json({
-                msg: 'Trade user created'
+                msg: 'User created'
             });
         }
         else {
             return res.json({
-                msg: 'Trade user not created'
+                msg: 'User not created'
             });
         }
     }
@@ -41,28 +41,28 @@ exports.postSignup = async function (req, res) {
 exports.postLogin = async function (req, res, next) {
     const { email, password } = req.body;
 
-    let trader = await TradeModel.findOne({email});
+    let user = await UserModel.findOne({email});
 
-    if (!trader) {
+    if (!user) {
         return res.json({
             status: 'error',
-            msg: 'Trade user not found',
+            msg: 'User not found',
             data: null
         });
     }
 
-    if (trader.email == email.toLowerCase() &&
-        trader.password == password) {
+    if (user.email == email.toLowerCase() &&
+        user.password == password) {
 
-        req.session.type = 'trade';
-        req.session._id = trader._id;
-        req.session.email = trader.email;
+        req.session.type = 'user';
+        req.session._id = user._id;
+        req.session.email = user.email;
 
         return res.json({
             status: 'success',
-            msg: 'Successfully logged in as Trade user',
+            msg: 'Successfully logged in as User',
             data: null,
-            redirect: '/trade/'
+            redirect: '/user/'
         });
 
     } else {

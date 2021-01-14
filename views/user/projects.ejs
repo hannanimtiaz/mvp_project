@@ -1,5 +1,5 @@
 <%- include('../partials/html_start.ejs') %>
-    <a href="/trade/createProject" class="create_program float-right">
+    <a href="/user/createProject" class="create_program float-right">
         Create Project
     </a>
     <div class="mt-1">
@@ -7,16 +7,15 @@
             <% projects.forEach(project=> { %>
                 <div class="p-2" project_id="<%=project._id%>" style="background-color: yellow; width: 100px;">
                     <p><b>Name:</b>
-                        <%= project.name %>
+                        <a href="/user/projectPage/<%= project._id %>/"><%= project.name %></a>
                     </p>
                     <p><b>Style:</b>
                         <%= project.style %>
                     </p>
-                    <a href="/trade/updateProject/<%= project._id %>/">Edit</a>
+                    <a href="/user/updateProject/<%= project._id %>/">Edit</a>
                     <a href="#" class="delete_btn">Delete</a>
                 </div>
                 <% }) %>
-
         <% }else { %>
                 <h1>No Projects created</h1>
         <% } %>
@@ -28,7 +27,7 @@
             let id = $(this).parent().attr('project_id')
             $.ajax({
                 type: "POST",
-                url: '/trade/deleteProject',
+                url: '/user/deleteProject',
                 dataType: 'json',
                 data: {
                     id
@@ -40,13 +39,10 @@
                         setTimeout(() => {
                             location.reload();
                         }, 2000);
-
                     } else {
                         alert("There was an error try again")
                     }
-
                 }
-
             })
         })
     </script>

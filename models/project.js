@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var projectSchema = new Schema({
     name: String,
     style: String,
-    trade_id: { type: Schema.Types.ObjectId, ref: 'Trade' },
+    user_id: { type: Schema.Types.ObjectId, ref: 'User' },
     client_id: { type: Schema.Types.ObjectId, ref: 'Client' },
     room_ids: [{ type: Schema.Types.ObjectId, ref: 'Room' }],
 });
