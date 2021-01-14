@@ -7,12 +7,12 @@
     <form>
       <div class="form-group">
         <label for="productCode">Product Code</label>
-        <input type="string" class="form-control" id="productCode" placeholder="Enter the product code">
+        <input type="string" class="form-control" id="productCode" placeholder="Enter the product code" value="<%= product.code %> ">
       </div>
 
       <div class="form-group">
         <label for="productName">Product Name</label>
-        <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+        <input type="text" class="form-control" id="productName" placeholder="Enter product name" value="<%= product.name %> ">
       </div>
 
       <div class="form-group">
@@ -20,18 +20,18 @@
         <div class="input-group">
           <div class="input-group-addon"> £ </div>
           <input type="string" class="form-control" id="productValue" placeholder="Enter product value per unit"
-            onkeypress="return isNumberKey(event)">
+            onkeypress="return isNumberKey(event)" value="<%= product.value %> ">
         </div>
       </div>
 
       <div class="form-group">
         <label for="supplierName">Supplier Name</label>
-        <input type="text" class="form-control" id="supplierName" placeholder="Enter supplier's name">
+        <input type="text" class="form-control" id="supplierName" placeholder="Enter supplier's name" value="<%= product.supplierName %> ">
       </div>
 
       <div class="form-group">
         <label for="productColor">Product Color</label>
-        <input type="text" class="form-control" id="productColor" placeholder="Enter color of the product">
+        <input type="text" class="form-control" id="productColor" placeholder="Enter color of the product" value="<%= product.color %> ">
       </div>
 
       <div class="form-group">
@@ -46,8 +46,8 @@
             <option value="feet">feet</option>
           </select>
 
-          <input type="text" class="form-control" id="productSizeWidth" placeholder="Enter width of the product">
-          <input type="text" class="form-control" id="productSizeHeight" placeholder="Enter height of the product">
+          <input type="text" class="form-control" id="productSizeWidth" placeholder="Enter width of the product" value="<%= product.sizeWidth %> ">
+          <input type="text" class="form-control" id="productSizeHeight" placeholder="Enter height of the product" value="<%= product.sizeHeight %> ">
         </div>
       </div>
 
@@ -58,8 +58,6 @@
   </div>
 
   <script>
-    // createproductpost
-
     $('.submit_btn').click(function (e) {
       e.preventDefault();
       var productCode = $('#productCode').val()
@@ -81,7 +79,7 @@
 
         $.ajax(
           {
-            url: "/admin/createproductpost",
+            url: "/admin/editproductpost",
             type: "POST",
             data: {
               code: productCode,
