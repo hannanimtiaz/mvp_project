@@ -3,8 +3,6 @@ function redirectUrl(type) {
     console.log('type: ', type);
     if (type === 'admin')
         return '/admin';
-    if (type === 'retail')
-        return '/retail';
     if (type === 'trade')
         return '/trade';
 
@@ -15,16 +13,6 @@ function redirectUrl(type) {
 
 module.exports.isAdmin = function (req, res, next) {
     if (req.session.type === 'admin') {
-        next()
-    }
-    else {
-        // res.redirect('/');
-        res.redirect(redirectUrl(req.session.type))
-    }
-}
-
-module.exports.isRetailer = function (req, res, next) {
-    if (req.session.type === 'retail') {
         next()
     }
     else {
