@@ -33,19 +33,20 @@ module.exports.isRetailer = function (req, res, next) {
     }
 }
 
-module.exports.isTrader = async function (req, res, next) {
+// module.exports.isTrader = async function (req, res, next) {
+    module.exports.isTrader = function (req, res, next) {
     if (req.session.type === 'trade') {
 
 
-        let trader = await TradeModel.find({ _id: req.session._id })
+        // let trader = await TradeModel.find({ _id: req.session._id })
 
-        console.log('data: ', data);
-        if (trader.status == 'APPROVED') {
-            res.render('student/index', { data });
-        } else {
-            console.log('next called');
+        // console.log('data: ', data);
+        // if (trader.status == 'APPROVED') {
+        //     res.render('student/index', { data });
+        // } else {
+        //     console.log('next called');
             next()
-        }
+        // }
     }
     else {
         // res.redirect('/');

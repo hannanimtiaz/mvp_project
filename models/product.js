@@ -4,14 +4,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
-    productCode: String,
-    productName: String, 
-    productValue: String, 
+    code: String,
+    name: String, 
+    value: String, 
     supplierName: String, 
-    productColor: String, 
-    productSizeUnit: String, 
-    productSizeWidth: String, 
-    productSizeHeight: String
+    color: String, 
+    sizeUnit: String, 
+    sizeWidth: String, 
+    sizeHeight: String
 });
 
 var Product = mongoose.model('Product',

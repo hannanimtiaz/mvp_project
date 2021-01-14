@@ -160,15 +160,15 @@
           <input type="text" class="form-control" id="site_url" placeholder="Enter any supporting info">
         </div>
 
-        <div class="form-group">
-          <label class="custom-control-label" for="termsAndConditions">
-            <input type="checkbox" class="custom-control-input" id="termsAndConditions">
-            Agree to <a href="#">terms and condiotions</a></label>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="termsAndConditions" autocomplete="off" value="">
+          <label class="form-check-label" for="termsAndConditions">Agree to <a href="#">terms and
+              condiotions</a></label>
         </div>
 
-        <div class="form-group">
-          <label class="custom-control-label" for="subscription">Subscribe to marketing material</label>
-          <input type="checkbox" class="custom-control-input" id="subscription">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="subscription" autocomplete="off" value="">
+          <label class="form-check-label" for="subscription">Subscribe to marketing material</label>
         </div>
 
         <div class="form-group">
@@ -282,9 +282,11 @@
         alert("ERROR: Empty field(s).");
       }
 
+      //terms and conditions checked validation
       else if (termsAndConditions == 'unchecked') {
         alert("ERROR: Agree to terms and conditions before proceeding.");
       }
+
       //email format validation
       else if (validator.isEmail(String(userEmail)) == false) { alert("Invalid Email Address!"); }
 
@@ -305,8 +307,7 @@
               DOB: DOB,
               companyName: companyName,
               businessNumber: businessNumber,
-              //NAME OR NUMBER? CORRECTION IN MODELS
-              tradingNumber: tradingName,
+              tradingName: tradingName,
               address: address,
               city: String,
               businessType: String,

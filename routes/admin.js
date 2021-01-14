@@ -10,15 +10,16 @@ const {
 router.get('/', getHome);
 
 /* Get Product detail page. */
-router.get('/productdetail', productController.getProductsDetail)
+router.get('/products', productController.getProductsDetail)
 
 /* Get Create Product page. */
 router.get('/createproductget', productController.createProductGet)
 
 router.post('/createproductpost', productController.createProductPost);
 
-/* Get Show Product page. */
-router.get('/showproductsget', productController.showProductsget)
+router.get('/editproductget/:product_id', productController.editProductGet)
+
+router.get('/editproductpost', productController.editProductPost)
 
 
 module.exports = router

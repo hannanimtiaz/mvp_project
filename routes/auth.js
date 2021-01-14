@@ -32,5 +32,7 @@ router.post('/trade/login', tradeAuth.postLogin);
 /* Get trade user signup page. */
 router.get('/trade/signup', tradeAuth.getSignup);
 
+/* Post trade user signup page. */
+router.post('/trade/signup', tradeAuth.postSignup);
 
 module.exports = router;

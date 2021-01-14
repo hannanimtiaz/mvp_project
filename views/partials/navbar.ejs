@@ -19,19 +19,17 @@
         </li>
       </ul>
       <% } %>
-        <% if(type==='retail' ) { %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a href="/logout" class="dropdown-item has-icon text-danger">
-                <i class="fas fa-sign-out-alt"></i> Logout
-              </a>
-            </div>
+      <% if (type=="admin") { %>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/admin/">Home<span class="sr-only">(current)</span></a>
           </li>
-          <% } else if(type==='trade' ) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/products">Products</a>
+          </li>
+        </ul>
+        <% } %>
+          <% if(type==='retail' ) { %>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -43,7 +41,7 @@
                 </a>
               </div>
             </li>
-            <% }else if(type==='admin' ){ %>
+            <% } else if(type==='trade' ) { %>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
@@ -55,7 +53,19 @@
                   </a>
                 </div>
               </li>
-              <% }%>
+              <% }else if(type==='admin' ){ %>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a href="/logout" class="dropdown-item has-icon text-danger">
+                      <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                  </div>
+                </li>
+                <% }%>
 
   </div>
 </nav>

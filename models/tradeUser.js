@@ -16,7 +16,7 @@ var tradeSchema = new Schema({
         enum: ['male', 'female'],
     }, companyName: String,
     businessNumber: String,
-    tradingNumber: String,
+    tradingName: String,
     address: String,
     city: String,
     businessType: String,

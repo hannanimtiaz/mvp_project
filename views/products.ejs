@@ -5,10 +5,45 @@
     <h1>Products Detail</h1>
     <a href="/admin/createproductget">Create Product</a>
     <br>
-    <a href="/admin/showproductsget">Show All Products</a>
-    <br>
     <a href="">Edit Product</a>
-
+    <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+          <th scope="col">supplierName</th>
+          <th scope="col">Color</th>
+          <th scope="col">SizeUnit</th>
+          <th scope="col">SizeWidth</th>
+          <th scope="col">SizeHeight</th>
+          <% if (type == "admin") { %>
+            <th scope="col">actions</th> 
+          <% } %>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (products !=null) { %>
+          <% products.forEach(product=> { %>
+            <tr>
+              <td class="productCode"><%= product.code %></td>
+              <td class="productName"><%= product.name %></td>
+              <td class="productValue"><%= product.value %></td>
+              <td class="supplierName"><%= product.supplierName %></td>
+              <td class="productColor"><%= product.color %></td>
+              <td class="productSizeUnit"><%= product.sizeUnit %></td>
+              <td class="productSizeWidth"><%= product.sizeWidth %></td>
+              <td class="productSizeHeight"><%= product.sizeHeight %></td>
+              <% if (type == "admin") { %>
+                <td><a href="/admin//editproductget/<%= product._id %> ">Edit Product</a></td>
+              <% } %>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+    <br>
   </div>
 
   <%- include('./partials/html_end.ejs') %>

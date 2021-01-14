@@ -10,29 +10,29 @@ exports.getSignup = function (req, res, next) {
 }
 
 exports.postSignup = async function (req, res) {
-    const { gender, firstname, lastname, email, password, phone_no, postal_code, DOB, companyName, businessNumber, tradingNumber, address, city, businessType, companyRole, companySize } = req.body;
+    const { gender, firstname, lastname, email, password, phone_no, postal_code, DOB, companyName, businessNumber, tradingName, address, city, businessType, companyRole, companySize } = req.body;
 
-    let isEmail = TradeModel.exists({ email: email })
+    let isEmail = await TradeModel.exists({ email: email })
 
     if (isEmail) {
         return res.json({
-            msg: 'User already exists'
+            msg: 'Trade user already exists'
         })
     }
     else {
-        let trade = await TradeModels.create({
-            gender, firstname, lastname, email, password, phone_no, DOB, companyName, businessNumber, postal_code, tradingNumber, address, city, businessType, companyRole, companySize
+        let trade = await TradeModel.create({
+            gender, firstname, lastname, email, password, phone_no, DOB, companyName, businessNumber, postal_code, tradingName, address, city, businessType, companyRole, companySize
         });
         console.log('trade: ', trade);
 
         if (trade) {
             return res.json({
-                msg: 'User created'
+                msg: 'Trade user created'
             });
         }
         else {
             return res.json({
-                msg: 'User not created'
+                msg: 'Trade user not created'
             });
         }
     }
@@ -46,7 +46,7 @@ exports.postLogin = async function (req, res, next) {
     if (!trader) {
         return res.json({
             status: 'error',
-            msg: 'User not found',
+            msg: 'Trade user not found',
             data: null
         });
     }
@@ -60,7 +60,7 @@ exports.postLogin = async function (req, res, next) {
 
         return res.json({
             status: 'success',
-            msg: 'Successfully logged In',
+            msg: 'Successfully logged in as Trade user',
             data: null,
             redirect: '/trade/'
         });
