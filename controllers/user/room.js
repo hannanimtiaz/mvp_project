@@ -32,6 +32,8 @@ exports.deleteRoom = async function(req, res){
     console.log('index: ', index);
     console.log('project.room_ids: ', project.room_ids);
     project.room_ids.splice(index, 1)
+
+    project.save()
     console.log('project.room_ids: ', project.room_ids);
      res.json({
          msg:"ok"
