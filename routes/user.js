@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
-const { getHome, projectController, roomController } = require('../controllers/user')
+const { getHome, projectController, roomController, productController } = require('../controllers/user')
 
 
 router.get('/', getHome);
@@ -23,6 +23,7 @@ router.post('/updateProject', projectController.postUpdateProject)
 
 router.post('/deleteProject', projectController.postDeleteProject)
 
+router.get('/products', productController.getProducts)
 
 
 module.exports = router

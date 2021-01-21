@@ -58,6 +58,7 @@
   </div>
 
   <script>
+    
     // createproductpost
 
     $('.submit_btn').click(function (e) {
@@ -93,8 +94,23 @@
               sizeWidth: productSizeWidth,
               sizeHeight: productSizeHeight
             },
-            success: function (obj) {
-              console.log(obj.msg)
+            success: function (data) {
+              if (data.status === "success") {
+                iziToast.success({
+                  title: 'Success',
+                  message: 'Product created!',
+                });
+                setTimeout(() => {
+                  window.location.href = "/admin/products/";
+                }, 1000);
+
+              } else {
+                iziToast.warning({
+                  title: 'Error',
+                  message: 'There was an error. Try again!',
+                });
+              }
+
             }
           })
       }
