@@ -5,45 +5,137 @@
     <h1>Products Detail</h1>
     <a href="/admin/createproductget">Create Product</a>
     <br>
-    <a href="">Edit Product</a>
-    <br>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Code</th>
           <th scope="col">Name</th>
+          <th scope="col">Code</th>
+          <th scope="col">Supplier Name</th>
           <th scope="col">Value</th>
-          <th scope="col">supplierName</th>
           <th scope="col">Color</th>
-          <th scope="col">SizeUnit</th>
-          <th scope="col">SizeWidth</th>
-          <th scope="col">SizeHeight</th>
-          <% if (type == "admin") { %>
-            <th scope="col">actions</th> 
-          <% } %>
+          <th scope="col">Unit</th>
+          <th scope="col">Width</th>
+          <th scope="col">Height</th>
+          <% if (type=="admin" ) { %>
+            <th scope="col">Actions</th>
+            <% } %>
         </tr>
       </thead>
       <tbody>
         <% if (products !=null) { %>
           <% products.forEach(product=> { %>
             <tr>
-              <td class="productCode"><%= product.code %></td>
-              <td class="productName"><%= product.name %></td>
-              <td class="productValue"><%= product.value %></td>
-              <td class="supplierName"><%= product.supplierName %></td>
-              <td class="productColor"><%= product.color %></td>
-              <td class="productSizeUnit"><%= product.sizeUnit %></td>
-              <td class="productSizeWidth"><%= product.sizeWidth %></td>
-              <td class="productSizeHeight"><%= product.sizeHeight %></td>
-              <% if (type == "admin") { %>
-                <td><a href="/admin//editproductget/<%= product._id %> ">Edit Product</a></td>
-              <% } %>
+              <td class="productName">
+                <%= product.name %>
+              </td>
+              <td class="productCode">
+                <%= product.code %>
+              </td>
+              <td class="supplierName">
+                <%= product.supplierName %>
+              </td>
+              <td class="productValue">
+                <%= product.value %>
+              </td>
+              <td class="productColor">
+                <%= product.color %>
+              </td>
+              <td class="productSizeUnit">
+                <%= product.sizeUnit %>
+              </td>
+              <td class="productSizeWidth">
+                <%= product.sizeWidth %>
+              </td>
+              <td class="productSizeHeight">
+                <%= product.sizeHeight %>
+              </td>
+              <% if (type=="admin" ) { %>
+                <td>
+                  <a href="/admin/editproductget/<%= product._id %> ">Edit Product</a>
+                  <br>
+                  <a data-toggle="modal" data-target="#deleteModal" href="#" product_id='<%= product._id %>'
+                    product_name='<%= product.name %>' class="confirmation">Delete Product</a>
+                  <br>
+                  <a href="/admin//<%= product._id %> ">Add to Cart</a>
+                </td>
+                <% } %>
             </tr>
-          <% }) %>
-        <% } %>
+            <% }) %>
+              <% } %>
       </tbody>
     </table>
     <br>
+    <div class="modal fade" id="deleteModal" aria-hidden="true" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Modal Heading</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <p id="confirmation_text"></p>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary deleteproduct" product_id="">Confirm</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script>
+
+    $('.confirmation').click(function () {
+      var product_id = $(this).attr('product_id')
+      var product_name = $(this).attr('product_name')
+      var idModal = $(".deleteproduct")
+
+      console.log('idModal: ', idModal);
+      console.log('product_name: ', product_name);
+
+      idModal.attr("product_id", product_id)
+      $("#confirmation_text").text("Confirm deletion of Product: " + product_name + "?")
+      // , "?");
+    })
+
+    $('.deleteproduct').click(function () {
+      var product_id = $(this).attr('product_id')
+
+      $.ajax({
+        url: "/admin/deleteproduct",
+        type: "POST",
+        dataType: "json",
+        data: {
+          id: product_id
+        },
+        success: function (data) {
+          if (data.status === "success") {
+            iziToast.success({
+              title: 'Success',
+              message: 'Product deleted!',
+            });
+            setTimeout(() => {
+              window.location.href = "/admin/products/";
+            }, 1000);
+
+          } else {
+            iziToast.warning({
+              title: 'Error',
+              message: 'There was an error. Try again!',
+            });
+          }
+        }
+      })
+    })
+
+  </script>
 
   <%- include('./partials/html_end.ejs') %>

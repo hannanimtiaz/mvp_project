@@ -314,8 +314,22 @@
               companyRole: String,
               companySize: String
             },
-            success: function (obj) {
-              console.log(obj.msg)
+            success: function (data) {
+              if (data.status === "success") {
+                iziToast.success({
+                  title: 'Success',
+                  message: 'User created!',
+                });
+                setTimeout(() => {
+                  window.location.href = "/user/";
+                }, 1000);
+
+              } else {
+                iziToast.warning({
+                  title: 'Error',
+                  message: 'There was an error. Try again!',
+                });
+              }
             }
           })
       }

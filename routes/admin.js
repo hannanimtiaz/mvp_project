@@ -15,11 +15,16 @@ router.get('/products', productController.getProductsDetail)
 /* Get Create Product page. */
 router.get('/createproductget', productController.createProductGet)
 
+/* Post Create Product details. */
 router.post('/createproductpost', productController.createProductPost);
 
+/* Get Edit Product page. */
 router.get('/editproductget/:product_id', productController.editProductGet)
 
-router.get('/editproductpost', productController.editProductPost)
+/* Post Edit Product details. */
+router.post('/editproductpost', productController.editProductPost)
 
+/* Post Delete Product. */
+router.post('/deleteproduct', productController.postDeleteProduct)
 
 module.exports = router

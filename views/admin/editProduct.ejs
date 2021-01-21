@@ -2,17 +2,19 @@
 
   <div class="container-fluid product_page mx-5">
 
-    <h1>Create Products Page</h1>
+    <h1>Edit Products Page</h1>
 
-    <form>
+    <form class="editProduct" product_id="<%=product._id%>">
       <div class="form-group">
         <label for="productCode">Product Code</label>
-        <input type="string" class="form-control" id="productCode" placeholder="Enter the product code" value="<%= product.code %> ">
+        <input type="string" class="form-control" id="productCode" placeholder="Enter the product code"
+          value="<%= product.code %> ">
       </div>
 
       <div class="form-group">
         <label for="productName">Product Name</label>
-        <input type="text" class="form-control" id="productName" placeholder="Enter product name" value="<%= product.name %> ">
+        <input type="text" class="form-control" id="productName" placeholder="Enter product name"
+          value="<%= product.name %> ">
       </div>
 
       <div class="form-group">
@@ -26,28 +28,32 @@
 
       <div class="form-group">
         <label for="supplierName">Supplier Name</label>
-        <input type="text" class="form-control" id="supplierName" placeholder="Enter supplier's name" value="<%= product.supplierName %> ">
+        <input type="text" class="form-control" id="supplierName" placeholder="Enter supplier's name"
+          value="<%= product.supplierName %> ">
       </div>
 
       <div class="form-group">
         <label for="productColor">Product Color</label>
-        <input type="text" class="form-control" id="productColor" placeholder="Enter color of the product" value="<%= product.color %> ">
+        <input type="text" class="form-control" id="productColor" placeholder="Enter color of the product"
+          value="<%= product.color %> ">
       </div>
 
       <div class="form-group">
         <label for="productSizeUnit">Product Size</label>
         <div class="d-flex">
-          <select id="productSizeUnit">
-            <option value="" selected>Select unit</option>
-            <option value="milimeters">milimeters</option>
-            <option value="meters">meters</option>
-            <option value="centimeters">centimeters</option>
-            <option value="inches">inches</option>
-            <option value="feet">feet</option>
+          <select value="<%= product.sizeUnit %>" id="productSizeUnit">
+            <option value="<%= product.sizeUnit %>" selected></option>
+            <option id="milimeters" value="milimeters">milimeters</option>
+            <option id="meters" value="meters">meters</option>
+            <option id="centimeters" value="centimeters">centimeters</option>
+            <option id="inches" value="inches">inches</option>
+            <option id="feet" value="feet">feet</option>
           </select>
 
-          <input type="text" class="form-control" id="productSizeWidth" placeholder="Enter width of the product" value="<%= product.sizeWidth %> ">
-          <input type="text" class="form-control" id="productSizeHeight" placeholder="Enter height of the product" value="<%= product.sizeHeight %> ">
+          <input type="text" class="form-control" id="productSizeWidth" placeholder="Enter width of the product"
+            value="<%= product.sizeWidth %> ">
+          <input type="text" class="form-control" id="productSizeHeight" placeholder="Enter height of the product"
+            value="<%= product.sizeHeight %> ">
         </div>
       </div>
 
@@ -58,8 +64,11 @@
   </div>
 
   <script>
-    $('.submit_btn').click(function (e) {
+    // $(document).ready
+
+    $('.editProduct').submit(function (e) {
       e.preventDefault();
+      var productId = $(this).attr("product_id")
       var productCode = $('#productCode').val()
       var productName = $('#productName').val()
       var productValue = $('#productValue').val()
@@ -76,12 +85,15 @@
       }
 
       else {
+        confirm("Confirm changes?")
 
         $.ajax(
           {
             url: "/admin/editproductpost",
             type: "POST",
+            dataType: "json",
             data: {
+              id: productId,
               code: productCode,
               name: productName,
               value: productValue,
@@ -89,10 +101,22 @@
               color: productColor,
               sizeUnit: productSizeUnit,
               sizeWidth: productSizeWidth,
-              sizeHeight: productSizeHeight
+              sizeHeight: productSizeHeight,
             },
-            success: function (obj) {
-              console.log(obj.msg)
+            success: function (data) {
+              console.log('data: ', data);
+              if (data.status === "success") {
+                alert('Product updated!')
+                setTimeout(() => {
+                  window.location.href = "/admin/products/";
+                }, 1000);
+
+              } else {
+                iziToast.warning({
+                  title: 'Error',
+                  message: 'There was an error. Try again!',
+                });
+              }
             }
           })
       }

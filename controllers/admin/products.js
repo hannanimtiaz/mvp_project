@@ -32,10 +32,16 @@ exports.createProductPost = async function (req, res) {
         console.log('product: ', product);
 
         if (product) {
-            console.log('Product created');
+            return res.json({
+                status: 'success',
+                msg: 'Product created!'
+            })
         }
         else {
-            console.log('Product not created');
+            return res.json({
+                status: 'error',
+                msg: 'Product not created!'
+            })
         }
     }
 }
@@ -48,5 +54,57 @@ exports.editProductGet = async function (req, res) {
 }
 
 exports.editProductPost = async function(req, res){
-    
+    let { id, name, code, value, supplierName, color, sizeUnit, sizeWidth, sizeHeight } = req.body
+    console.log('req.body: ', req.body);
+
+    let product = await ProductModel.findOne({ _id: id })
+    console.log('product: ', product);
+
+    if (product) {
+        product.name = name
+        product.code = code 
+        product.value = value
+        product.supplierName = supplierName
+        product.color = color 
+        product.sizeUnit =  sizeUnit
+        product.sizeWidth = sizeWidth
+        product.sizeHeight = sizeHeight
+
+        product.save()
+        res.json({
+            status: "success",
+            msg: "Product Updated!",
+            product: product
+        });
+    }
+    else {
+        res.json({
+            status: "error",
+            msg: "Product not found. Try again."
+        });
+    }
+}
+
+exports.postDeleteProduct = async function(req, res){
+    let { id } = req.body
+    console.log('req.body: ', req.body);
+
+    let product = await ProductModel.findOne({ _id: id })
+    console.log('product: ', product);
+
+    if (product) {
+        product.remove()
+        res.json({
+            status: "success",
+            msg: "Product Deleted!",
+            product: product
+        });
+    }
+    else {
+        res.json({
+            status: "error",
+            msg: "Product not found. Try again."
+        });
+    }
+
 }
