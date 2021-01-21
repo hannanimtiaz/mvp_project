@@ -1,4 +1,5 @@
 const ProjectModel = require('../../models/project')
+const ProductModel = require('../../models/product')
 const ClientModel = require('../../models/client')
 
 
@@ -45,11 +46,13 @@ exports.getProjectPage = async function (req, res) {
         path: 'room_ids',
         model: 'Room',
         populate: {
-            path: 'project_ids',
-            model: 'Project',
+            path: 'product_ids',
+            model: 'Product',
         }
     })
-    res.render('user/projectPage', { project });
+    let products = await ProductModel.find()
+    console.log('products: ', products);
+    res.render('user/projectPage', { project, products });
 
 
 }

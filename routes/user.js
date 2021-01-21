@@ -15,6 +15,11 @@ router.post('/createProject', projectController.postCreateProject)
 
 router.post('/createRoom', roomController.createRoom)
 
+
+router.post('/addProductToRoom', roomController.addProductToRoom)
+
+router.post('/deleteRoom', roomController.deleteRoom)
+
 router.get('/projectPage/:project_id', projectController.getProjectPage)
 
 router.get('/updateProject/:project_id', projectController.getUpdateProject)

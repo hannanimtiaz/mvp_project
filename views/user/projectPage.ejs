@@ -1,4 +1,15 @@
 <%- include('../partials/html_start.ejs') %>
+    <style>
+        .product-overlay {
+            position: absolute;
+            background-color: darkgray;
+            opacity: 0.8;
+            height: 100%;
+            width: 100%;
+            border-radius: 30px;
+            top: 0;
+        }
+    </style>
     <!-- Modal -->
     <div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -16,12 +27,12 @@
                             <label for="roomName">Project Name</label>
                             <input type="text" class="form-control" id="roomName" placeholder="Enter Room Name">
                         </div>
-                        <button type="submit" class="btn btn-primary submit_btn" data-dismiss="modal" project_id='<%= project._id %>'>Create</button>
+                        <button type="submit" class="btn btn-primary submit_btn" data-dismiss="modal"
+                            project_id='<%= project._id %>'>Create</button>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary createRoom" 
-                        data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary createRoom" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -31,25 +42,56 @@
     <h1>
         <%= project.name %>
     </h1>
-    <div style="width: 500px; background-color: darkgoldenrod; border-radius: 30px; min-height: 300px;padding: 20px;">
-        <div>
-            <h3 style="width: 50px;">Rooms</h3>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createRoomModal">
-                Create Room
-            </button>
-        </div>
-        <% if (project.room_ids.length==0) { %>
-            No Rooms
-        <% } else { %>
-            <% project.room_ids.forEach(room => { %>
-                <div style="background-color: firebrick; padding: 5px; border-radius: 20px;">
-                    <%= room.name %> 
-                </div>
-            <% }) %>     
-        <% }  %>
-    </div>
+    <div class="row">
 
+        <div class="col-6">
+            <div style="background-color: darkgoldenrod; border-radius: 30px; min-height: 300px;padding: 20px;">
+                <div class="pb-2">
+                    <span style="font-size: 1.7rem;">Rooms</span>
+                    <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal"
+                        data-target="#createRoomModal">
+                        Create Room
+                    </button>
+                </div>
+                <% if (project.room_ids.length==0) { %>
+                    No Rooms
+                    <% } else { %>
+                        <% project.room_ids.forEach(room=> { %>
+                            <div class="my-3" style="background-color: firebrick; padding: 5px; border-radius: 20px;">
+                                <span>
+                                    <%= room.name %>
+                                </span>
+                                <button class="btn btn-danger deleteRoom" project_id="<%= project._id %>" room_id="<%= room._id %>" href=""
+                                    style="float: right;">Delete</button>
+                                <button class="btn btn-secondary selectRoom" room_id="<%= room._id %>" href=""
+                                    style="float: right;">Select</button>
+                            </div>
+                            <% }) %>
+                                <% } %>
+            </div>
+        </div>
+        <div class="col-6">
+            <div
+                style="background-color: darkgoldenrod; border-radius: 30px; min-height: 300px;padding: 20px; position: relative;">
+                <h3 style="width: 50px;">Products</h3>
+                <% products.forEach(product=> { %>
+                    <div>
+                        <span>
+                            <%= product.name %>
+                        </span>
+                        <button class="btn btn-secondary addProduct" product_id="<%= product._id %>" href=""
+                            style="float: right;">Add</button>
+                    </div>
+                    <% }) %>
+            </div>
+            <div class="product-overlay">
+
+            </div>
+        </div>
+
+    </div>
     <script>
+        let room_id
         $('.submit_btn').click(function (e) {
             let name = $('#roomName').val()
             console.log('$(this): ', $(this));
@@ -64,9 +106,56 @@
                     name,
                     project_id
                 },
-                success:function(data){
+                success: function (data) {
                     console.log('data: ', data);
-                    if(data.status == 'success'){
+                    if (data.status == 'success') {
+                        alert(data.msg)
+                        setTimeout(() => {
+                            location.reload()
+                        }, 2000);
+                    }
+                }
+            })
+        })
+
+        $('.selectRoom').click(function (){
+            room_id = $(this).attr('room_id')
+            $('.product-overlay').addClass('d-none')
+        })
+
+        $('.addProduct').click(function (){
+            let product_id = $(this).attr('product_id')
+            $.ajax({
+                type: 'POST',
+                url: '/user/addProductToRoom',
+                data: {
+                    room_id,
+                    product_id
+                },
+                success: function (data) {
+                    console.log('data: ', data);
+                    if (data.status == 'success') {
+                        alert(data.msg)
+                        setTimeout(() => {
+                            location.reload()
+                        }, 2000);
+                    }
+                }
+            })
+        })
+        $('.deleteRoom').click(function(){
+            let room_id = $(this).attr('room_id')
+            let project_id = $(this).attr('project_id')
+            $.ajax({
+                type: 'POST',
+                url: '/user/deleteRoom',
+                data: {
+                    room_id,
+                    project_id
+                },
+                success: function (data) {
+                    console.log('data: ', data);
+                    if (data.status == 'success') {
                         alert(data.msg)
                         setTimeout(() => {
                             location.reload()
